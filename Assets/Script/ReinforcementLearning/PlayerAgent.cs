@@ -8,19 +8,19 @@ using UnityEngine;
 public class PlayerAgent : Agent
 {
     [field: SerializeField] Player player;
+    [field: SerializeField] AgentUI agentUI;
     int prevScore;
-    MLAgentUI mlagentUI;
 
     public override void Initialize()
     {
         base.Initialize();
-        mlagentUI = UIManager.Instance.transform.Find("MLAgent").GetComponent<MLAgentUI>();
+        agentUI = UIManager.Instance.GetComponentInChildren<AgentUI>();
         LevelCreater.Instance.CreateLevel();
     }
 
     public void Update()
     {
-        mlagentUI.SetRewardValue(GetCumulativeReward());
+        agentUI.SetRewardValue(GetCumulativeReward());
         if (player.Health <= 0)
         {
             AddReward(-1f);
@@ -31,8 +31,8 @@ public class PlayerAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         var pos = LevelCreater.Instance.tileMap[0].map.WorldToCell(player.transform.position);
-        sensor.AddObservation((float)pos.x / (LevelCreater.Instance.grid.x * 0.5f));
-        sensor.AddObservation((float)pos.y / (LevelCreater.Instance.grid.y * 0.5f));     
+        sensor.AddObservation((float)pos.x / (LevelCreater.Instance.mapGrid.x * 0.5f));
+        sensor.AddObservation((float)pos.y / (LevelCreater.Instance.mapGrid.y * 0.5f));     
 
         sensor.AddObservation((float)player.Health / (float)player.MaxHealth);
         sensor.AddObservation((float)player.Stamina / (float)player.MaxStamina);
@@ -74,21 +74,18 @@ public class PlayerAgent : Agent
             AddReward((player.score - prevScore) / 10f);
             prevScore = player.score;
         }
-        mlagentUI.SetStepValue(StepCount);
+        agentUI.SetStepValue(StepCount);
     }
 
     public override void OnEpisodeBegin()
     {
         GameManager.Instance.GameStop();
         prevScore = 0;
-        mlagentUI.SetStepValue(0);
+        agentUI.SetStepValue(0);
         SetReward(0);
-        mlagentUI.SetRewardValue(GetCumulativeReward());
+        agentUI.SetRewardValue(GetCumulativeReward());
 
-        LevelCreater.Instance.grid = new Vector2Int(Random.Range(50, 125), Random.Range(50, 125));
-        LevelCreater.Instance.obstarclePercentage = Random.Range(0f, 0.05f);
         LevelCreater.Instance.CreateLevel();
-
         GameManager.Instance.GameStart();
     }
 }

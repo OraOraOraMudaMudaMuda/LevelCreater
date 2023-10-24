@@ -44,15 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6319e256efdeb45ab1a37abbbb5257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {x: 0, y: 0}
-  obstarclePercentage: 0
+  mapGrid: {x: 62, y: 61}
+  minGrid: {x: 50, y: 50}
+  maxGrid: {x: 100, y: 100}
+  obstarclePercentage: 2
   levelName: 
   tileMap:
-  - name: 
+  - name: Base
     map: {fileID: 0}
-    tiles: []
+    tiles:
+    - {fileID: 11400000, guid: d58e1cd98a608de4fba93cdd87a05ba8, type: 2}
     isObstarcleType: 0
-  - name: dfsdf
+  - name: Obstarcle
     map: {fileID: 0}
-    tiles: []
-    isObstarcleType: 0
+    tiles:
+    - {fileID: 11400000, guid: 7e82b0c04ba2c8a419ccde20f712f355, type: 2}
+    isObstarcleType: 1
