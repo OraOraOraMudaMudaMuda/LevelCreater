@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5FA55481-408B-D74E-22C8-38FDD12B7B67}</ProjectGuid>
+    <ProjectGuid>{9A2C495B-AC42-8559-4D17-C3042DD9FAF3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,22 +56,22 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\LevelCreater.cs" />
+    <Compile Include="Assets\Script\Manager\LevelManager.cs" />
     <Compile Include="Assets\Script\Ingame\Character.cs" />
-    <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\Ingame\Player.cs" />
     <Compile Include="Assets\Script\Ingame\Item.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
-    <Compile Include="Assets\Script\MainCamera.cs" />
+    <Compile Include="Assets\Script\Ingame\MainCamera.cs" />
     <Compile Include="Assets\Script\ReinforcementLearning\PlayerAgent.cs" />
-    <Compile Include="Assets\Script\Spawner.cs" />
+    <Compile Include="Assets\Script\Ingame\Spawner.cs" />
     <Compile Include="Assets\Script\UI\AgentUI.cs" />
-    <Compile Include="Assets\Script\UIManager.cs" />
+    <Compile Include="Assets\Script\Manager\UIManager.cs" />
     <Compile Include="Assets\Script\Ingame\Enemy.cs" />
     <Compile Include="Assets\Script\UI\LevelCreaterUI.cs" />
-    <Compile Include="Assets\Script\PlayerAttackCollider.cs" />
-    <Compile Include="Assets\Script\InputManager.cs" />
-    <Compile Include="Assets\Script\UIGauge.cs" />
-    <Compile Include="Assets\Script\ScriptbleLevel.cs" />
+    <Compile Include="Assets\Script\Ingame\PlayerAttackCollider.cs" />
+    <Compile Include="Assets\Script\Manager\InputManager.cs" />
+    <Compile Include="Assets\Script\UI\UIGauge.cs" />
+    <Compile Include="Assets\Script\Manager\ScriptbleLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -871,7 +871,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="asset-store-tools-editor.csproj">
-      <Project>{659C8851-FF6D-3B39-F4E6-BA78568FD725}</Project>
+      <Project>{AE0D84B6-035B-94C2-23C7-318DD0E65CDA}</Project>
       <Name>asset-store-tools-editor</Name>
     </ProjectReference>
   </ItemGroup>

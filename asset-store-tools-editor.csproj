@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{659C8851-FF6D-3B39-F4E6-BA78568FD725}</ProjectGuid>
+    <ProjectGuid>{AE0D84B6-035B-94C2-23C7-318DD0E65CDA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>asset-store-tools-editor</AssemblyName>

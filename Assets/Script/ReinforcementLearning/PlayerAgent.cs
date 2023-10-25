@@ -15,7 +15,7 @@ public class PlayerAgent : Agent
     {
         base.Initialize();
         agentUI = UIManager.Instance.GetComponentInChildren<AgentUI>();
-        LevelCreater.Instance.CreateLevel();
+        LevelManager.Instance.CreateLevel();
     }
 
     public void Update()
@@ -30,9 +30,9 @@ public class PlayerAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        var pos = LevelCreater.Instance.tileMap[0].map.WorldToCell(player.transform.position);
-        sensor.AddObservation((float)pos.x / (LevelCreater.Instance.mapGrid.x * 0.5f));
-        sensor.AddObservation((float)pos.y / (LevelCreater.Instance.mapGrid.y * 0.5f));     
+        var pos = LevelManager.Instance.tileMap[0].map.WorldToCell(player.transform.position);
+        sensor.AddObservation((float)pos.x / (LevelManager.Instance.mapGrid.x * 0.5f));
+        sensor.AddObservation((float)pos.y / (LevelManager.Instance.mapGrid.y * 0.5f));     
 
         sensor.AddObservation((float)player.Health / (float)player.MaxHealth);
         sensor.AddObservation((float)player.Stamina / (float)player.MaxStamina);
@@ -85,7 +85,7 @@ public class PlayerAgent : Agent
         SetReward(0);
         agentUI.SetRewardValue(GetCumulativeReward());
 
-        LevelCreater.Instance.CreateLevel();
+        LevelManager.Instance.CreateLevel();
         GameManager.Instance.GameStart();
     }
 }
