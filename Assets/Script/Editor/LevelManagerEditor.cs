@@ -11,12 +11,14 @@ using System.IO;
 public class LevelManagerEditor : Editor
 {
     LevelManager levelManager;
-    SerializedProperty tilemapInfoProp;
+    SerializedProperty baseTileProp;
+    SerializedProperty obstacleTileProp;
     Vector2Int test;
 
     public void OnEnable()
     {
-        tilemapInfoProp = serializedObject.FindProperty("tileMap");        
+        baseTileProp = serializedObject.FindProperty("baseTile");
+        obstacleTileProp = serializedObject.FindProperty("obstacleTile");
         levelManager = (LevelManager)target;
     }
 
@@ -32,7 +34,9 @@ public class LevelManagerEditor : Editor
 
 
         EditorGUI.BeginChangeCheck();
-        EditorGUILayout.PropertyField(tilemapInfoProp, true);
+        EditorGUILayout.PropertyField(baseTileProp, true);
+        EditorGUILayout.PropertyField(obstacleTileProp, true);
+
         if (EditorGUI.EndChangeCheck())
             serializedObject.ApplyModifiedProperties();
         if (GUILayout.Button("Create Level", GUILayout.Width(200f)))

@@ -37,11 +37,12 @@ public class GameManager : MonoBehaviour
     {
         GameStop();
         Player.Init();
-        Spawner.SpawnStart();
+        Spawner.Initialize();
+        Spawner.SpawnObject();
+        Spawner.SpawnEnemy();
     }
 
     public void GameStop()
     {
-        Spawner.SpawnStop();
     }
 }

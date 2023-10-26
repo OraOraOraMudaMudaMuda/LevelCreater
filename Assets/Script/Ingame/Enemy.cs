@@ -6,6 +6,7 @@ public class Enemy : Character
 {
     public Collider2D detectCollider;
     public Collider2D attackCollider;
+    public Collider2D searchCollider;
     private int mask;
 
     public void AIStart(Transform _target)
@@ -17,6 +18,7 @@ public class Enemy : Character
 
     public override void Dead()
     {
+        GameManager.Instance.Spawner.enemyAmount--;
         Destroy(gameObject);
     }
     public void DeadStart()
@@ -70,16 +72,21 @@ public class Enemy : Character
     public IEnumerator AICoroutine(Transform _target)
     {
         while (Health > 0)
-        {
+        {            
             if (detectCollider.IsTouchingLayers(mask))
             {
                 AttackStart();
                 yield return new WaitForSeconds(1f);
             }
-            else
+            else if (searchCollider.IsTouchingLayers(mask))
             {
                 Move(_target);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.25f);
+            }
+            else
+            {
+                Idle();
+                yield return new WaitForSeconds(0.1f);
             }
         }
     }

@@ -15,13 +15,13 @@ public class LevelManager : MonoBehaviour
     [System.Serializable]
     public struct TileMapValue
     {
-        public string name;
         public Tilemap map;
         public List<Tile> tiles;
         public bool isObstarcleType;
     }
 
-    public TileMapValue[] tileMap;
+    public TileMapValue baseTile;
+    public TileMapValue obstacleTile;
 
     public void Awake()
     {
@@ -30,8 +30,8 @@ public class LevelManager : MonoBehaviour
 
     public void CreateLevel()
     {
-        for (int i = 0; i < tileMap.Length; i++)
-            tileMap[i].map.ClearAllTiles();
+        baseTile.map.ClearAllTiles();
+        obstacleTile.map.ClearAllTiles();
 
         int xGrid = Random.Range(minGrid.x, maxGrid.x);
         int yGrid = Random.Range(minGrid.y, maxGrid.y);
@@ -41,18 +41,26 @@ public class LevelManager : MonoBehaviour
         {
             for (int j = -yGrid / 2; j < yGrid / 2; j++)
             {
-                for (int k = 0; k < tileMap.Length; k++)
+                baseTile.map.SetTile(new Vector3Int(i, j, 0), baseTile.tiles[UnityEngine.Random.Range(0, baseTile.tiles.Count)]);
+                if (obstarclePercentage > Random.Range(0, 100) ||
+                    ((i == -xGrid / 2 || i == (xGrid / 2) - 1) || (j == -yGrid / 2 || j == (yGrid / 2) - 1))) //set obstacle on edge)
                 {
-                    var tileMapData = tileMap[k];
-                    if (!tileMapData.isObstarcleType)
-                        tileMapData.map.SetTile(new Vector3Int(i, j, 0), tileMapData.tiles[UnityEngine.Random.Range(0, tileMapData.tiles.Count)]);
-                    else if (obstarclePercentage > Random.Range(0, 100) ||
-                        ((i == -xGrid / 2 || i == (xGrid / 2) - 1) || (j == -yGrid / 2 || j == (yGrid / 2) - 1))) //set obstacle on edge
-                    {
-                        tileMapData.map.SetTile(new Vector3Int(i, j, 0), tileMapData.tiles[UnityEngine.Random.Range(0, tileMapData.tiles.Count)]);
-                    }
+                    obstacleTile.map.SetTile(new Vector3Int(i, j, 0), obstacleTile.tiles[UnityEngine.Random.Range(0, obstacleTile.tiles.Count)]);
                 }
             }
         }
+    }
+
+
+
+
+    public Vector3 GetWorldPositionFromCellPosition(Vector3Int cellPosition)
+    {
+        return baseTile.map.layoutGrid.GetCellCenterWorld(cellPosition);
+    }
+
+    public bool IsObstacleCell(Vector3Int cellPosition)
+    {
+        return obstacleTile.map.GetTile(cellPosition) != null;
     }
 }

@@ -27,10 +27,16 @@ public class PlayerAgent : Agent
             GameManager.Instance.GameStop();
             EndEpisode();
         }
+        else if (GameManager.Instance.Spawner.enemyAmount <= 0)
+        {
+            AddReward(1f);
+            GameManager.Instance.GameStop();
+            EndEpisode();
+        }
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        var pos = LevelManager.Instance.tileMap[0].map.WorldToCell(player.transform.position);
+        var pos = LevelManager.Instance.baseTile.map.WorldToCell(player.transform.position);
         sensor.AddObservation((float)pos.x / (LevelManager.Instance.mapGrid.x * 0.5f));
         sensor.AddObservation((float)pos.y / (LevelManager.Instance.mapGrid.y * 0.5f));     
 

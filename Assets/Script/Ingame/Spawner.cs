@@ -1,49 +1,89 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] SpawnInfo[] spawnInfos;
-    [SerializeField] SpawnInfo[] enemySpawnInfos;
+    [SerializeField] public SpawnInfo[] itemSpawnInfos;
+    [SerializeField] public SpawnInfo[] enemySpawnInfos;
+    [SerializeField] public int enemyAmount;
 
     [System.Serializable]
     public class SpawnInfo
     {
         public GameObject go;
-        public float respawnTime = 3f;
-        public float radius = 5f;
+        public int minAmount = 5;
+        public int maxAmount = 20;
     }
 
-    public void SpawnStart()
+    public void Initialize()
     {
-        Action<Transform, Transform> enemyAction = (_x, _y) => {
-            _x.GetComponent<Enemy>().AIStart(_y);
-        };
-        for(int i = 0; i < spawnInfos.Length; i++)
-            StartCoroutine(Respawn(spawnInfos[i]));
-        for (int i = 0; i < enemySpawnInfos.Length; i++)
-            StartCoroutine(Respawn(enemySpawnInfos[i], enemyAction));
-    }
-    public void SpawnStop()
-    {
-        StopAllCoroutines();
-        foreach (Transform child in transform)
-            Destroy(child.gameObject);
-    }
-
-    IEnumerator Respawn(SpawnInfo _spawnInfo, Action<Transform, Transform> func = null)
-    {
-        var wfs = new WaitForSeconds(_spawnInfo.respawnTime);
-        var player = GameManager.Instance.Player.transform;
-
-        while (true)
+        Transform[] childList = GetComponentsInChildren<Transform>();
+        
+        if (childList != null)
         {
-            var pos = (UnityEngine.Random.insideUnitCircle.normalized * _spawnInfo.radius) + (Vector2)player.position;
-            var cloneObj = Instantiate(_spawnInfo.go, pos, Quaternion.identity, transform);
-            func?.Invoke(cloneObj.transform, player);
-            yield return wfs;
+            for (int i = 0; i < childList.Length; i++)
+            {
+                if (childList[i] != transform)
+                    Destroy(childList[i].gameObject);
+            }
+        }
+    }
+
+    public void SpawnObject()
+    {
+        var levelManager = LevelManager.Instance;
+
+        foreach (var itemInfo in itemSpawnInfos)
+        {
+            int amount = Random.Range(itemInfo.minAmount, itemInfo.maxAmount);
+            
+            for (int i = 0; i < amount; i++)
+            {
+                while (true)
+                {
+                    int xPos = Random.Range(-levelManager.mapGrid.x/2, levelManager.mapGrid.x/2);
+                    int yPos = Random.Range(-levelManager.mapGrid.y/2, levelManager.mapGrid.y/2);
+                    var cellPos = new Vector3Int(xPos, yPos);
+
+                    if (!levelManager.IsObstacleCell(cellPos))
+                    {
+                        var worldPos = levelManager.GetWorldPositionFromCellPosition(cellPos);
+                        Instantiate(itemInfo.go, worldPos, Quaternion.identity, transform);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void SpawnEnemy()
+    {
+        var levelManager = LevelManager.Instance;
+        enemyAmount = 0;
+
+        foreach (var enemyInfo in enemySpawnInfos)
+        {
+            int amount = Random.Range(enemyInfo.minAmount, enemyInfo.maxAmount);
+            
+            for (int i = 0; i < amount; i++)
+            {
+                while (true)
+                {
+                    int xPos = Random.Range(-levelManager.mapGrid.x / 2, levelManager.mapGrid.x / 2);
+                    int yPos = Random.Range(-levelManager.mapGrid.y / 2, levelManager.mapGrid.y / 2);
+                    var cellPos = new Vector3Int(xPos, yPos);
+
+                    if (!levelManager.IsObstacleCell(cellPos))
+                    {
+                        var worldPos = levelManager.GetWorldPositionFromCellPosition(cellPos);
+                        var enemy = Instantiate(enemyInfo.go, worldPos, Quaternion.identity, transform);
+                        enemy.GetComponent<Enemy>().AIStart(GameManager.Instance.Player.transform);
+                        enemyAmount++;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

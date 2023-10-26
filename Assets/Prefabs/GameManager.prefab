@@ -137,14 +137,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc664c4a2977874a9d911e7af2ee647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInfos:
-  - go: {fileID: 7992128006901610646, guid: ae4f4e654badc814d82d9bceac079e34, type: 3}
-    respawnTime: 5
-    radius: 5
+  itemSpawnInfos:
   - go: {fileID: 7992128006901610646, guid: d1b94dfe81451fb4f8fecc8984e8814c, type: 3}
-    respawnTime: 10
-    radius: 5
+    minAmount: 5
+    maxAmount: 10
+  - go: {fileID: 7992128006901610646, guid: ae4f4e654badc814d82d9bceac079e34, type: 3}
+    minAmount: 15
+    maxAmount: 30
   enemySpawnInfos:
   - go: {fileID: 7803126718738360122, guid: 7ae37a698b5707340a98ac49e8394c48, type: 3}
-    respawnTime: 5
-    radius: 5
+    minAmount: 10
+    maxAmount: 30
+  enemyAmount: 0
