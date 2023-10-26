@@ -36,6 +36,7 @@ public class Player : Character
     public override void Idle()
     {
         base.Idle();
+
         if (state != State.IDLE)
         {
             state = State.IDLE;

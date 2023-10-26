@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] public SpawnInfo[] itemSpawnInfos;
     [SerializeField] public SpawnInfo[] enemySpawnInfos;
     [SerializeField] public int enemyAmount;
+    [SerializeField] public int createdEnemyAmount;
 
     [System.Serializable]
     public class SpawnInfo
@@ -60,8 +61,8 @@ public class Spawner : MonoBehaviour
     public void SpawnEnemy()
     {
         var levelManager = LevelManager.Instance;
-        enemyAmount = 0;
-
+        createdEnemyAmount = enemyAmount = 0;
+        
         foreach (var enemyInfo in enemySpawnInfos)
         {
             int amount = Random.Range(enemyInfo.minAmount, enemyInfo.maxAmount);
@@ -85,5 +86,6 @@ public class Spawner : MonoBehaviour
                 }
             }
         }
+        createdEnemyAmount = enemyAmount;
     }
 }

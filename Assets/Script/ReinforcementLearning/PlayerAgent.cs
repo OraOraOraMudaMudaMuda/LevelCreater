@@ -43,6 +43,9 @@ public class PlayerAgent : Agent
         sensor.AddObservation((float)player.Health / (float)player.MaxHealth);
         sensor.AddObservation((float)player.Stamina / (float)player.MaxStamina);
 
+        var spawner = GameManager.Instance.Spawner;
+        sensor.AddObservation(((float)spawner.enemyAmount / (float)spawner.createdEnemyAmount));
+
         bool isCanAttack = player.attackEnemyList.Count > 0 ? true : false;
         sensor.AddObservation(isCanAttack);
     }

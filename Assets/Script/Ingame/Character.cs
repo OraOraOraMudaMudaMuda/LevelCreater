@@ -26,7 +26,7 @@ public class Character : MonoBehaviour
         Idle();
     }
 
-    public virtual void Idle() { }
+    public virtual void Idle() { rigid.velocity = Vector2.zero; }
     public virtual void Movement(Vector2 _val)    {    }
     public virtual void Dead() { }
     public virtual void Attack() { }
