@@ -20,6 +20,11 @@ public class Player : Character
         GameManager.Instance.GameStart();
     }
 
+    public void Update()
+    {
+        AddStamina(Time.deltaTime * 2.5f);
+    }
+
     public override void Init()
     {
         base.Init();
@@ -110,7 +115,7 @@ public class Player : Character
         }
     }
 
-    public void AddStamina(int _stamina)
+    public void AddStamina(float _stamina)
     {
         Stamina += _stamina;
 

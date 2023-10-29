@@ -15,8 +15,8 @@ public class Character : MonoBehaviour
 
     [field: SerializeField] public int MaxHealth { get; protected set; } = 5;
     [field: SerializeField] public int Health { get; protected set; } = 5;
-    [field: SerializeField] public int MaxStamina { get; protected set; } = 100;
-    [field: SerializeField] public int Stamina { get; protected set; } = 100;
+    [field: SerializeField] public float MaxStamina { get; protected set; } = 100;
+    [field: SerializeField] public float Stamina { get; protected set; } = 100f;
     [field: SerializeField] public int Power { get; protected set; } = 1;
 
     public virtual void Init()

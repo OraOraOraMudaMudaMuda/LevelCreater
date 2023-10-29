@@ -21,9 +21,10 @@ public class PlayerAgent : Agent
     public void Update()
     {
         agentUI.SetRewardValue(GetCumulativeReward());
+        AddReward(-1f / (float)MaxStep);
+
         if (player.Health <= 0)
         {
-            AddReward(-1f);
             GameManager.Instance.GameStop();
             EndEpisode();
         }
@@ -73,14 +74,12 @@ public class PlayerAgent : Agent
                 break;
             case 4:
                 player.Attack();
-                if(player.state == Character.State.ATTACK)
-                    AddReward(player.attackEnemyList.Count * 0.01f);
                 break;
         }
 
         if (prevScore != player.score)
         {
-            AddReward((player.score - prevScore) / 10f);
+            AddReward( (player.score - prevScore) * 0.1f);
             prevScore = player.score;
         }
         agentUI.SetStepValue(StepCount);

@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
     {
         public Tilemap map;
         public List<Tile> tiles;
-        public bool isObstarcleType;
     }
 
     public TileMapValue baseTile;

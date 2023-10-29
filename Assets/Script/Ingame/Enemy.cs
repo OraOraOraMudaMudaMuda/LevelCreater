@@ -81,12 +81,12 @@ public class Enemy : Character
             else if (searchCollider.IsTouchingLayers(mask))
             {
                 Move(_target);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForEndOfFrame();
             }
             else
             {
                 Idle();
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForEndOfFrame();
             }
         }
     }
