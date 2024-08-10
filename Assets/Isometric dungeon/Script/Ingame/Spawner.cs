@@ -6,8 +6,11 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] public SpawnInfo[] itemSpawnInfos;
     [SerializeField] public SpawnInfo[] enemySpawnInfos;
-    [SerializeField] public int enemyAmount;
-    [SerializeField] public int createdEnemyAmount;
+
+    [HideInInspector]
+    public int enemyAmount;
+    [HideInInspector]
+    public int createdEnemyAmount;
 
     [System.Serializable]
     public class SpawnInfo
